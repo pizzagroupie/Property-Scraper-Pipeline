@@ -12,6 +12,10 @@ from config import SEEN_LISTINGS_FILE, REQUEST_DELAY
 import scraper_aucoot
 import scraper_historiska
 import scraper_inigo
+import scraper_wrede
+import scraper_cowcamo
+import scraper_fantasticfrank
+import scraper_uchijapan
 import telegram_sender
 
 # --- Logging Setup ---
@@ -60,6 +64,10 @@ def main():
         ("Aucoot", scraper_aucoot.scrape_listings),
         ("Historiska Hem", scraper_historiska.scrape_listings),
         ("Inigo", scraper_inigo.scrape_listings),
+        ("Wrede", scraper_wrede.scrape_listings),
+        ("Cowcamo", scraper_cowcamo.scrape_listings),
+        ("Fantastic Frank", scraper_fantasticfrank.scrape_listings),
+        ("Uchi Japan", scraper_uchijapan.scrape_listings),
     ]
 
     for name, scrape_fn in scrapers:
