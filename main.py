@@ -15,7 +15,6 @@ import scraper_inigo
 import scraper_wrede
 import scraper_cowcamo
 import scraper_fantasticfrank
-import scraper_uchijapan
 import telegram_sender
 
 # --- Logging Setup ---
@@ -49,7 +48,7 @@ def save_seen_listings(seen: set[str]) -> None:
 
 def main():
     logger.info("=" * 60)
-    logger.info("ğŸ  Property Scraper Pipeline â€” Starting")
+    logger.info("ğŸ  Property Scraper Pipeline â€?Starting")
     logger.info("=" * 60)
 
     # Load previously seen listings
@@ -67,7 +66,6 @@ def main():
         ("Wrede", scraper_wrede.scrape_listings),
         ("Cowcamo", scraper_cowcamo.scrape_listings),
         ("Fantastic Frank", scraper_fantasticfrank.scrape_listings),
-        ("Uchi Japan", scraper_uchijapan.scrape_listings),
     ]
 
     for name, scrape_fn in scrapers:
@@ -77,9 +75,9 @@ def main():
             listings = scrape_fn()
             all_listings.extend(listings)
             source_counts[name] = len(listings)
-            logger.info(f"âœ“ {name}: {len(listings)} listings found")
+            logger.info(f"âœ?{name}: {len(listings)} listings found")
         except Exception as e:
-            logger.error(f"âœ— {name} scraper crashed: {e}")
+            logger.error(f"âœ?{name} scraper crashed: {e}")
             source_counts[name] = 0
 
     logger.info(f"\n{'â”€' * 40}")
@@ -114,7 +112,7 @@ def main():
     save_seen_listings(seen)
 
     logger.info(f"\n{'=' * 60}")
-    logger.info(f"âœ… Done! Sent {sent_count}/{len(new_listings)} new listings")
+    logger.info(f"âœ?Done! Sent {sent_count}/{len(new_listings)} new listings")
     logger.info(f"{'=' * 60}")
 
 
