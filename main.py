@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Main orchestrator for the property scraper pipeline.
 Runs all scrapers, deduplicates against seen listings, and sends new ones to Telegram.
@@ -48,7 +49,7 @@ def save_seen_listings(seen: set[str]) -> None:
 
 def main():
     logger.info("=" * 60)
-    logger.info("üè† Property Scraper Pipeline ‚Ä?Starting")
+    logger.info("Property Scraper Pipeline -- Starting")
     logger.info("=" * 60)
 
     # Load previously seen listings
@@ -69,18 +70,18 @@ def main():
     ]
 
     for name, scrape_fn in scrapers:
-        logger.info(f"\n{'‚îÄ' * 40}")
+        logger.info(f"\n{'---' * 14}")
         logger.info(f"Scraping {name}...")
         try:
             listings = scrape_fn()
             all_listings.extend(listings)
             source_counts[name] = len(listings)
-            logger.info(f"‚ú?{name}: {len(listings)} listings found")
+            logger.info(f"OK {name}: {len(listings)} listings found")
         except Exception as e:
-            logger.error(f"‚ú?{name} scraper crashed: {e}")
+            logger.error(f"FAIL {name} scraper crashed: {e}")
             source_counts[name] = 0
 
-    logger.info(f"\n{'‚îÄ' * 40}")
+    logger.info(f"\n{'---' * 14}")
     logger.info(f"Total listings scraped: {len(all_listings)}")
 
     # Filter out already-seen listings
@@ -112,7 +113,7 @@ def main():
     save_seen_listings(seen)
 
     logger.info(f"\n{'=' * 60}")
-    logger.info(f"‚ú?Done! Sent {sent_count}/{len(new_listings)} new listings")
+    logger.info(f"Done! Sent {sent_count}/{len(new_listings)} new listings")
     logger.info(f"{'=' * 60}")
 
 
